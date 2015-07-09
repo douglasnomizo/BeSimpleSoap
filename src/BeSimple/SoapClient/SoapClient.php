@@ -227,6 +227,9 @@ class SoapClient extends \SoapClient
         // perform HTTP request with cURL
         $soapResponse = $this->__doHttpRequest($soapRequest);
 
+	// Correção para compatibilização com a API do Java (Pje)
+        $soapResponse->setContent(str_replace('Content-Id', 'Content-ID', $soapResponse->getContent()));
+
         // run SoapKernel on SoapResponse
         $this->soapKernel->filterResponse($soapResponse);
 
